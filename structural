@@ -1,0 +1,84 @@
+//Structural pattern
+
+//Implement MediaPlayer Interface
+interface MediaPlayer {
+    void play(String audioType, String fileName);
+}
+
+
+//Implement AudioPlayer class
+class AudioPlayer implements MediaPlayer {
+    public void play(String audioType, String fileName) {
+        if(audioType.equalsIgnoreCase("mp3")) {
+            System.out.println("Playing mp3 file: " + fileName);
+        } else {
+            System.out.println("Invalid media. " + audioType + " format not supported");
+        }
+    }
+}
+
+
+//Implement interface AdvancedMediaPlayer
+interface AdvancedMediaPlayer {
+    void playVlc(String fileName);
+    void playMp4(String fileName);
+}
+
+
+//Implement class VLCplayer
+class VlcPlayer implements AdvancedMediaPlayer {
+    public void playVlc(String fileName) {
+        System.out.println("Playing vlc file: " + fileName);
+    }
+
+    public void playMp4(String fileName) {
+        // do nothing
+    }
+}
+
+
+//Implement class MP4player
+class Mp4Player implements AdvancedMediaPlayer {
+    public void playVlc(String fileName) {
+        // do nothing
+    }
+
+    public void playMp4(String fileName) {
+        System.out.println("Playing mp4 file: " + fileName);
+    }
+}
+
+
+//Implement class mediaAdapter
+class MediaAdapter implements MediaPlayer {
+    AdvancedMediaPlayer advancedMusicPlayer;
+
+    public MediaAdapter(String audioType) {
+        if(audioType.equalsIgnoreCase("vlc")) {
+            advancedMusicPlayer = new VlcPlayer();
+        } else if(audioType.equalsIgnoreCase("mp4")) {
+            advancedMusicPlayer = new Mp4Player();
+        }
+    }
+
+    public void play(String audioType, String fileName) {
+        if(audioType.equalsIgnoreCase("vlc")) {
+            advancedMusicPlayer.playVlc(fileName);
+        } else if(audioType.equalsIgnoreCase("mp4")) {
+            advancedMusicPlayer.playMp4(fileName);
+        }
+    }
+}
+
+
+//Implement main class
+public class AdapterPatternDemo {
+    public static void main(String[] args) {
+        AudioPlayer audioPlayer = new AudioPlayer();
+        
+        audioPlayer.play("mp3", "song.mp3");
+        audioPlayer.play("mp4", "movie.mp4");
+        audioPlayer.play("vlc", "show.vlc");
+        audioPlayer.play("avi", "clip.avi");
+    }
+}

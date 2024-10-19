@@ -1,0 +1,54 @@
+//Behaviorala pattern
+
+
+import java.util.ArrayList;
+import java.util.List;
+
+// Implement interface Subscriber
+interface Subscriber {
+    void update();
+}
+
+// Implement class subscriber
+class YouTubeSubscriber implements Subscriber {
+    private String name;
+
+    public YouTubeSubscriber(String name) {
+        this.name = name;
+    }
+
+    public void update() {
+        System.out.println(name + " got a new video notification!");
+    }
+}
+
+//Implement class YouTube channel 
+class YouTubeChannel {
+    private List<Subscriber> subscribers = new ArrayList<>();
+
+    public void subscribe(Subscriber subscriber) {
+        subscribers.add(subscriber);
+    }
+
+    public void notifySubscribers() {
+        for (Subscriber subscriber : subscribers) {
+            subscriber.update();
+        }
+    }
+}
+
+// Main class
+public class ObserverExample {
+    public static void main(String[] args) {
+        YouTubeChannel channel = new YouTubeChannel();
+
+        Subscriber sub1 = new YouTubeSubscriber("Alice");
+        Subscriber sub2 = new YouTubeSubscriber("Bob");
+
+        channel.subscribe(sub1);
+        channel.subscribe(sub2);
+
+        channel.notifySubscribers();  // Output: Alice got a new video notification!
+                                      //         Bob got a new video notification!
+    }
+}

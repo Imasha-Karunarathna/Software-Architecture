@@ -1,0 +1,48 @@
+//Creational pattern
+
+
+//Define interface
+interface Toy {
+    void create();
+}
+
+//Implement Car class
+class Car implements Toy {
+    public void create() {
+        System.out.println("Car is created!");
+    }
+}
+
+
+//Implement Doll class
+class Doll implements Toy {
+    public void create() {
+        System.out.println("Doll is created!");
+    }
+}
+
+
+//Implement toy factroy class
+
+class ToyFactory {
+    public static Toy getToy(String toyType) {
+        if (toyType.equalsIgnoreCase("car")) {
+            return new Car();
+        } else if (toyType.equalsIgnoreCase("doll")) {
+            return new Doll();
+        }
+        return null;
+    }
+}
+
+
+//Implement main class
+public class FactoryMethodExample {
+    public static void main(String[] args) {
+        Toy toy1 = ToyFactory.getToy("car");
+        toy1.create();  // Output: Car created!
+
+        Toy toy2 = ToyFactory.getToy("doll"); 
+        toy2.create();  // Output: Doll created!
+    }
+}
